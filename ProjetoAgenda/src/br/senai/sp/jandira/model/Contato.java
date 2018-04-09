@@ -10,15 +10,6 @@ public class Contato {
 	private String dtNascimento;
 	private String endereco;
 	private String sexo;
-	
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
 
 	public int getId() {
 		return id;
@@ -74,6 +65,14 @@ public class Contato {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 }
