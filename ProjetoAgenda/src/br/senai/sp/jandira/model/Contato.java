@@ -4,11 +4,11 @@ public class Contato {
 
 	private int id;
 	private String nome;
-	private String celular;
-	private String telefone;
-	private String email;
 	private String dtNascimento;
+	private String email;
 	private String endereco;
+	private String telefone;
+	private String celular;
 	private String sexo;
 
 	public int getId() {
@@ -27,20 +27,12 @@ public class Contato {
 		this.nome = nome;
 	}
 
-	public String getCelular() {
-		return celular;
+	public String getDtNascimento() {
+		return dtNascimento;
 	}
 
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setDtNascimento(String dtNascimento) {
+		this.dtNascimento = dtNascimento;
 	}
 
 	public String getEmail() {
@@ -51,14 +43,6 @@ public class Contato {
 		this.email = email;
 	}
 
-	public String getDtNascimento() {
-		return dtNascimento;
-	}
-
-	public void setDtNascimento(String dtNascimento) {
-		this.dtNascimento = dtNascimento;
-	}
-
 	public String getEndereco() {
 		return endereco;
 	}
@@ -66,7 +50,23 @@ public class Contato {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
 	public String getSexo() {
 		return sexo;
 	}
