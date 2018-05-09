@@ -1,12 +1,8 @@
 package br.senai.sp.jandira.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -25,7 +21,10 @@ import br.senai.sp.jandira.model.Contato;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class FrmAgenda extends JFrame {
@@ -57,6 +56,18 @@ public class FrmAgenda extends JFrame {
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblTitulo.setBounds(0, 0, 691, 88);
 		painelTitulo.add(lblTitulo);
+		
+		/* COLOCANDO O HORARIO */
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		
+		Date dataAtual = new Date();
+		
+		JLabel lblData = new JLabel("Data Atual");
+		lblData.setBounds(251, 89, 429, 22);
+		painelPrincipal.add(lblData);
+		lblData.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblData.setForeground(Color.BLACK);
+		lblData.setText("Hoje é: " + df.format(dataAtual));
 
 		// **** TABELA ****//
 		criarTabela();
@@ -78,7 +89,7 @@ public class FrmAgenda extends JFrame {
 		/**** EVENTO ADICIONAR ****/
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FrmContatos novo = new FrmContatos("Adicionar");
+				FrmCliente novo = new FrmCliente("Adicionar");
 				novo.setVisible(true);
 
 			}
@@ -107,6 +118,23 @@ public class FrmAgenda extends JFrame {
 		/**** EVENTO EXCLUIR ****/
 		btnExcuir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat dfBanco = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.000000");
+				
+				String minhaData = "23-04-2018";
+				Date dataSistema = null;
+				
+				
+				try {
+					dataSistema = df.parse(minhaData);
+					System.out.println(dataSistema);
+					
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+					
+				}
+				
 				Adicionar("Excluir");
 			}
 		});
@@ -116,19 +144,30 @@ public class FrmAgenda extends JFrame {
 		btnSair.setIcon(new ImageIcon(FrmAgenda.class.getResource("/br/senai/sp/jandira/imagens/exit.png")));
 		btnSair.setToolTipText("Cadastrar Novo Contato");
 		painelBotoes.add(btnSair);
-
+		
+		btnSair.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int resposta = JOptionPane.showConfirmDialog(null, "Você deseja sair?", "Sair do Sistema", JOptionPane.YES_NO_CANCEL_OPTION);
+				if (resposta == 0){
+					System.exit(0);
+				}
+			}
+		});
+		
 	}
 
 	public void criarTabela() {
 		painelTabela = new JPanel();
 		painelTabela.setBorder(
 				new TitledBorder(null, "Meus Contatos", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		painelTabela.setBounds(0, 92, 691, 363);
+		painelTabela.setBounds(0, 111, 691, 344);
 		painelPrincipal.add(painelTabela);
 		painelTabela.setLayout(null);
 
 		JScrollPane scrollTabela = new JScrollPane();
-		scrollTabela.setBounds(10, 21, 675, 331);
+		scrollTabela.setBounds(10, 21, 675, 323);
 		painelTabela.add(scrollTabela);
 
 		tabelaContatos = new JTable();
@@ -176,7 +215,7 @@ public class FrmAgenda extends JFrame {
 	}
 
 	public void Adicionar(String operacao) {
-		FrmContatos frmContato = new FrmContatos(operacao);
+		FrmCliente frmContato = new FrmCliente(operacao);
 		frmContato.setTitle(operacao + " Contato");
 		int linha = 0;
 		int id = 0;
@@ -192,7 +231,7 @@ public class FrmAgenda extends JFrame {
 			frmContato.setTextFieldId(contato.getId());
 			frmContato.setTextFieldNome(contato.getNome());
 			frmContato.setTextFieldEmail(contato.getEmail());
-			frmContato.setTextFieldDtNascimento(contato.getDtNascimento());
+			frmContato.setTextFieldDtNascimento(contato.DtNascimento());
 			frmContato.setTextFieldTelefone(contato.getTelefone());
 			frmContato.setTextFieldCelular(contato.getCelular());
 			frmContato.setCbSexo(contato.getSexo());
@@ -205,7 +244,4 @@ public class FrmAgenda extends JFrame {
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-	// **** SELECIONANDO AS LINHAS E COLUNAS **** //
-	// System.out.println(tabelaContatos.getValueAt(tabelaContatos.getSelectedRow(),tabelaContatos.getSelectedColumn()));
 }

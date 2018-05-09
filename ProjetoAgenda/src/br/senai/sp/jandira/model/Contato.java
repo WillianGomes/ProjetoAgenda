@@ -27,7 +27,7 @@ public class Contato {
 		this.nome = nome;
 	}
 
-	public String getDtNascimento() {
+	public String DtNascimento() {
 		return dtNascimento;
 	}
 
